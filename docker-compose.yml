@@ -19,7 +19,7 @@ services:
   chrome:
     container_name: "edx.${COMPOSE_PROJECT_NAME:-devstack}.chrome"
     hostname: chrome.devstack.edx
-    image: edxops/chrome:${OPENEDX_RELEASE:-latest}
+    image: edxops/chrome:${OPENEDX_RELEASE:-olive.master}
     shm_size: 2g
     networks:
       default:
@@ -54,7 +54,7 @@ services:
   devpi:
     container_name: "edx.${COMPOSE_PROJECT_NAME:-devstack}.devpi"
     hostname: devpi.devstack.edx
-    image: edxops/devpi:${OPENEDX_RELEASE:-latest}
+    image: edxops/devpi:${OPENEDX_RELEASE:-olive.master}
     networks:
       default:
         aliases:
@@ -140,7 +140,7 @@ services:
   firefox:
     container_name: "edx.${COMPOSE_PROJECT_NAME:-devstack}.firefox"
     hostname: firefox.devstack.edx
-    image: edxops/firefox:${OPENEDX_RELEASE:-latest}
+    image: edxops/firefox:${OPENEDX_RELEASE:-olive.master}
     shm_size: 2g
     networks:
       default:
@@ -319,7 +319,7 @@ services:
       SOCIAL_AUTH_EDX_OIDC_URL_ROOT: http://edx.devstack.lms:18000/oauth2
       ENABLE_DJANGO_TOOLBAR: 1
       DJANGO_WATCHMAN_TIMEOUT: 30
-    image: edxops/credentials:${OPENEDX_RELEASE:-latest}
+    image: edxops/credentials:${OPENEDX_RELEASE:-olive.master}
     networks:
       default:
         aliases:
@@ -345,7 +345,7 @@ services:
       TEST_ELASTICSEARCH_URL: "edx.devstack.elasticsearch710"
       ENABLE_DJANGO_TOOLBAR: 1
       DJANGO_WATCHMAN_TIMEOUT: 30
-    image: edxops/discovery:${OPENEDX_RELEASE:-latest}
+    image: edxops/discovery:nutmeg.master
     networks:
       default:
         aliases:
@@ -370,7 +370,7 @@ services:
     environment:
       DJANGO_WATCHMAN_TIMEOUT: 30
       ENABLE_DJANGO_TOOLBAR: 1
-    image: edxops/ecommerce:${OPENEDX_RELEASE:-latest}
+    image: edxops/ecommerce:nutmeg.master
     networks:
       default:
         aliases:
@@ -388,7 +388,7 @@ services:
       - elasticsearch710
       - lms
       - mysql57
-    image: edxops/notes:${OPENEDX_RELEASE:-latest}
+    image: edxops/notes:${OPENEDX_RELEASE:-olive.master}
     networks:
       default:
         aliases:
@@ -416,7 +416,7 @@ services:
       - mongo
       - elasticsearch710
       - opensearch12
-    image: edxops/forum:${OPENEDX_RELEASE:-latest}
+    image: edxops/forum:${OPENEDX_RELEASE:-olive.master}
     stdin_open: true
     tty: true
     networks:
@@ -449,7 +449,7 @@ services:
       EDXAPP_TEST_MONGO_HOST: edx.devstack.mongo
       NO_PYTHON_UNINSTALL: 1
       DJANGO_WATCHMAN_TIMEOUT: 30
-    image: edxops/edxapp:${OPENEDX_RELEASE:-latest}
+    image: edxops/edxapp:${OPENEDX_RELEASE:-olive.master}
     networks:
       default:
         aliases:
@@ -483,7 +483,7 @@ services:
       DB_PASSWORD: password
       LMS_HOST: http://localhost:18000
       DJANGO_SETTINGS_MODULE: analytics_dashboard.settings.devstack
-    image: edxops/insights:${OPENEDX_RELEASE:-latest}
+    image: edxops/insights:${OPENEDX_RELEASE:-olive.master}
     networks:
       default:
         aliases:
@@ -494,7 +494,7 @@ services:
       - /edx/var/insights/
 
   analyticsapi:
-    image: edxops/analytics_api:${OPENEDX_RELEASE:-latest}
+    image: edxops/analytics_api:${OPENEDX_RELEASE:-olive.master}
     container_name: edx.devstack.analyticsapi
     hostname: analyticsapi
     depends_on:
@@ -543,7 +543,7 @@ services:
       CELERY_BROKER_VHOST: 10
       CELERY_BROKER_PASSWORD: password
       DJANGO_WATCHMAN_TIMEOUT: 30
-    image: edxops/registrar:${OPENEDX_RELEASE:-latest}
+    image: edxops/registrar:${OPENEDX_RELEASE:-olive.master}
     networks:
       default:
         aliases:
@@ -577,7 +577,7 @@ services:
       CELERY_BROKER_VHOST: 10
       CELERY_BROKER_PASSWORD: password
       DJANGO_WATCHMAN_TIMEOUT: 30
-    image: edxops/registrar:${OPENEDX_RELEASE:-latest}
+    image: edxops/registrar:${OPENEDX_RELEASE:-olive.master}
     networks:
       default:
         aliases:
@@ -609,7 +609,7 @@ services:
       EDXAPP_TEST_MONGO_HOST: edx.devstack.mongo
       NO_PYTHON_UNINSTALL: 1
       DJANGO_WATCHMAN_TIMEOUT: 30
-    image: edxops/edxapp:${OPENEDX_RELEASE:-latest}
+    image: edxops/edxapp:${OPENEDX_RELEASE:-olive.master}
     networks:
       default:
         aliases:
@@ -625,7 +625,7 @@ services:
 
   xqueue:
     container_name: "edx.${COMPOSE_PROJECT_NAME:-devstack}.xqueue"
-    image: edxops/xqueue:${OPENEDX_RELEASE:-latest}
+    image: edxops/xqueue:${OPENEDX_RELEASE:-olive.master}
     command: bash -c 'source /edx/app/xqueue/xqueue_env && while true; do python /edx/app/xqueue/xqueue/manage.py runserver 0.0.0.0:18040 ; sleep 2; done'
     volumes:
       - ${DEVSTACK_WORKSPACE}/xqueue:/edx/app/xqueue/xqueue
@@ -640,7 +640,7 @@ services:
 
   xqueue_consumer:
     container_name: "edx.${COMPOSE_PROJECT_NAME:-devstack}.xqueue_consumer"
-    image: edxops/xqueue:${OPENEDX_RELEASE:-latest}
+    image: edxops/xqueue:${OPENEDX_RELEASE:-olive.master}
     command: bash -c 'source /edx/app/xqueue/xqueue_env && while true; do python /edx/app/xqueue/xqueue/manage.py run_consumer ; sleep 2; done'
     volumes:
       - ${DEVSTACK_WORKSPACE}/xqueue:/edx/app/xqueue/xqueue
